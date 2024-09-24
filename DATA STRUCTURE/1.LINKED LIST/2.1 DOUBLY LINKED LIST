@@ -46,7 +46,13 @@ void insertAtHead(Node*& head,int d)
  head=temp; // step 4 updating temp to head 
 }
 
-
+//6. INSERT AT TAIL
+void insertAtTail(Node*& tail,int d)
+{
+Node* temp=new Node(d);
+temp-> prev=tail;
+tail->next=temp;
+}
 
 // 4. Main function
 int main() {
@@ -55,12 +61,17 @@ int main() {
 
     // Setting head to point to the first node
     Node* head = node1;   
-
+    
+    Node* tail=node1;
     insertAtHead(head,100);          
 
     // Printing the list starting from the head
     print(head);
 
+    insertAtTail(tail,102);
+
+    cout<<"after insertion at tail"<<endl;
+    print(head);
     // Printing the length of the linked list
     cout << "Length: " << getLength(head) << endl;
 
@@ -68,7 +79,8 @@ int main() {
 }
 
 
-
-//output 
+/*output
 100 101 
-Length :1
+after insertion at tail
+100 101 102 
+Length: 3*/
