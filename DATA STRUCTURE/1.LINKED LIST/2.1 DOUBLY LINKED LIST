@@ -37,13 +37,26 @@ int getLength(Node *head) {
     return len;                     // Return the total length of the list
 }
 
+//5. INSERT AT HEAD 
+void insertAtHead(Node*& head,int d)
+{
+ Node* temp = new Node(d); // step 1 create a new temp node 
+ temp->next=head; // step 2 temp's next should point to head 
+ head->prev=temp; //step 3 head's prev should point to temp
+ head=temp; // step 4 updating temp to head 
+}
+
+
+
 // 4. Main function
 int main() {
     // Dynamically creating the first node with data 101
     Node* node1 = new Node(101);    
 
     // Setting head to point to the first node
-    Node* head = node1;             
+    Node* head = node1;   
+
+    insertAtHead(head,100);          
 
     // Printing the list starting from the head
     print(head);
@@ -53,3 +66,9 @@ int main() {
 
     return 0;
 }
+
+
+
+//output 
+100 101 
+Length :1
