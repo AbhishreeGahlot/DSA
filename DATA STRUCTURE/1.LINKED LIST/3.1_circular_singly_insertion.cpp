@@ -80,6 +80,52 @@ void print(Node *tail)
     cout << " -->tail "<<temp->data << endl;  // Print the last element (tail)
 }
 
+
+
+//function 3 deletion
+void deleteNode(Node *&tail, int value)
+{
+    // case 1 . when list is empty 
+    if(tail==NULL)
+    {
+        cout << " List is empty, please check again" << endl;
+        return;
+    }
+
+    
+    else{
+        //non-empty
+
+        //assuming that "value" is present in the Linked List
+        Node* prev = tail;
+        Node* curr = prev -> next;
+
+        while(curr -> data != value) {
+            prev = curr;
+            curr = curr -> next;
+        }
+
+        prev -> next = curr -> next;
+
+        //case 2 . when list has only single node
+        //1 Node Linked List
+        if(curr == prev) {
+            tail = NULL;
+        }
+
+        //>=2 Node linked list
+        else if(tail == curr ) {
+            tail = prev;
+        }
+
+        curr -> next = NULL;
+        delete curr;
+
+    }
+
+}
+
+
 int main()
 {   
     Node *tail = NULL;
@@ -93,6 +139,17 @@ int main()
 
     insertNode(tail, 101, 99);
     print(tail);
-
+    deleteNode(tail,101);
+    print(tail);
     return 0;
 }
+
+
+//output 
+abhishree@abhishree-HP-Laptop-14s-fq1xxx:~/Desktop/c++$ cd "/home/abhishree/Desktop/c++/1. LINKED LIST/"  g++ tempCodeRunnerFile.cpp -o tempCodeRunnerFile 
+                                                                                                          && "/home/abhishree/Desktop/c++/1. LINKED LIST/"tempCodeRunnerFile
+-->101  -->tail 101
+-->101 -->102  -->tail 101
+-->101 -->99 -->102  -->tail 101
+MEMORY FREED from the node with data 101
+-->102 -->99  -->tail 102
