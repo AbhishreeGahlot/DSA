@@ -1,1 +1,61 @@
+#include <iostream>
+using namespace std;
 
+class Queue {
+public:
+    int *arr;
+    int size;
+    int front;
+    int rear;
+
+    Queue(int size) {
+        this->size = size;
+        arr = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    // Function to add an element to the queue
+    void push(int data) {
+        // Check if the queue is full
+        if (rear == size - 1) {
+            cout << "QUEUE FULL" << endl;
+            return;
+        }
+        // Initialize front to 0 if it's the first element
+        if (front == -1) {
+            front = 0;
+        }
+        // Increment rear and add the new element
+        rear++;
+        arr[rear] = data;
+    }
+
+    // Function to remove an element from the queue
+    int pop() {
+        // Check if the queue is empty
+        if (front == -1 || front > rear) {
+            cout << "QUEUE EMPTY" << endl;
+            return -1;
+        }
+        // Store the element to be removed
+        int removedElement = arr[front];
+        arr[front] = -1; // Optional: Clear the value at front
+        front++;
+        // Reset front and rear if the queue is now empty
+        if (front > rear) {
+            front = -1;
+            rear = -1;
+        }
+        return removedElement;
+    }
+};
+
+int main() {
+    Queue q(5);
+    q.push(1);
+    q.push(2);
+    q.push(3);
+    cout << "Popped: " << q.pop() << endl; // Output the popped element
+    return 0;
+}
