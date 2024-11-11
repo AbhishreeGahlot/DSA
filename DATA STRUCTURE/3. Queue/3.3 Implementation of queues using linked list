@@ -1,1 +1,88 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+
+    // Constructor to initialize a new node
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+// Queue class using linked list
+class Queue {
+private:
+    Node* front;  // Pointer to the front of the queue
+    Node* rear;   // Pointer to the rear of the queue
+
+public:
+    // Constructor
+    Queue() {
+        front = rear = nullptr;
+    }
+
+    // Enqueue function to add an element to the rear of the queue
+    void enqueue(int value) {
+        Node* newNode = new Node(value);
+        if (rear == nullptr) {  // If queue is empty
+            front = rear = newNode;
+            return;
+        }
+        rear->next = newNode;
+        rear = newNode;
+    }
+
+    // Dequeue function to remove an element from the front of the queue
+    void dequeue() {
+        if (front == nullptr) {  // If queue is empty
+            cout << "Queue is empty\n";
+            return;
+        }
+        Node* temp = front;  // Store the current front
+        front = front->next; // Move the front to the next node
+
+        // If front becomes NULL, then change rear to NULL as well
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+
+        delete temp;  // Free the memory of the removed node
+    }
+
+    // Peek function to get the front element of the queue
+    int peek() {
+        if (front == nullptr) {
+            cout << "Queue is empty\n";
+            return -1;
+        }
+        return front->data;
+    }
+
+    // Check if the queue is empty
+    bool isEmpty() {
+        return front == nullptr;
+    }
+};
+
+int main() {
+    Queue q;
+
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    cout << "Front element: " << q.peek() << endl;  // Should print 10
+    q.dequeue();  // Removes 10
+    cout << "Front element after dequeue: " << q.peek() << endl;  // Should print 20
+
+    q.dequeue();  // Removes 20
+    q.dequeue();  // Removes 30
+    q.dequeue();  // Queue is empty
+
+    return 0;
+}
 
