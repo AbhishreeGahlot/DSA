@@ -1,0 +1,136 @@
+Time Complexity	O(n * m + K * log n)
+Space Complexity	O(n)
+
+Great! Let’s **explain this function line by line** and word by word. This function is designed to **find the `K` weakest rows in a binary matrix**, where each row is sorted and `1` represents a soldier and `0` a civilian.
+
+---
+
+## 🔧 Function Definition:
+
+```cpp
+void weakestSoldier(vector<vector<int>> matrix, int K)
+```
+
+### ▶ `void`
+
+* The function **returns nothing**.
+
+### ▶ `weakestSoldier`
+
+* Name of the function. It suggests we’re trying to **find or print the weakest soldiers (rows)**.
+
+### ▶ `(vector<vector<int>> matrix, int K)`
+
+* **`matrix`** is a 2D vector (a list of rows, each row is a list of `1`s and `0`s).
+* **`K`** is the number of **weakest rows** we want to print.
+
+---
+
+## 🧱 Inside the Function:
+
+### 🔹 Step 1: Create a `vector` of custom `Row` objects
+
+```cpp
+vector<Row> rows;  // vector of Row objects
+```
+
+* This will store the **soldier count** and **index** of each row.
+* Each entry will be a `Row(count, index)` object.
+
+---
+
+### 🔁 Step 2: Count soldiers in each row
+
+```cpp
+for (int i = 0; i < matrix.size(); i++) {
+    int count = 0;
+    for (int j = 0; j < matrix[i].size() && matrix[i][j] == 1; j++) {
+        count++;
+    }
+    rows.push_back(Row(count, i));
+}
+```
+
+Let’s break this down:
+
+1. Outer loop iterates over each row of the matrix (`i` is row index).
+2. `count` is initialized to 0 for each row.
+3. Inner loop counts the number of `1`s in the row (stops at first `0`, since rows are sorted).
+4. `Row(count, i)` is created and pushed into `rows`.
+
+### ✅ After this loop:
+
+* `rows` will contain `Row` objects with soldier count and row index.
+
+Example:
+For matrix:
+
+```cpp
+{{1,1,0,0},
+ {1,1,1,1},
+ {1,0,0,0},
+ {1,1,0,0}}
+```
+
+→ `rows` =
+
+* Row(2, 0)
+* Row(4, 1)
+* Row(1, 2)
+* Row(2, 3)
+
+---
+
+### 🔷 Step 3: Build a min-heap from the `rows` vector
+
+```cpp
+priority_queue<Row> pq(rows.begin(), rows.end());
+```
+
+* This creates a **priority queue** (`pq`) from all the rows.
+* Based on the overloaded `<` operator in `Row`, it will behave like a **min-heap**:
+
+  * Row with **fewest soldiers** has the **highest priority**
+  * If two rows have same count, **lower index** comes first
+
+---
+
+### 🔁 Step 4: Print top K weakest rows
+
+```cpp
+for (int i = 0; i < K; i++) {
+    cout << "Row " << pq.top().idx << endl;
+    pq.pop();
+}
+```
+
+* Print the index (`idx`) of the weakest row `K` times.
+* Each time:
+
+  * Get the weakest row using `pq.top()`
+  * Print its index
+  * Remove it from the heap using `pq.pop()`
+
+---
+
+## ✅ Final Output: What this function does
+
+It prints the **indices of the `K` weakest rows** in terms of soldier count:
+
+* Weakest = rows with **fewer `1`s**
+* If tie → smaller index first
+
+---
+
+## 📌 Summary of Logic:
+
+| Step | Action                                                                    |
+| ---- | ------------------------------------------------------------------------- |
+| 1    | Count `1`s (soldiers) in each row                                         |
+| 2    | Store each row’s count and index in a vector                              |
+| 3    | Push all rows into a priority queue (min-heap based on count, then index) |
+| 4    | Print the index of top `K` weakest rows                                   |
+
+---
+
+Let me know if you want this visualized with a sample matrix!
