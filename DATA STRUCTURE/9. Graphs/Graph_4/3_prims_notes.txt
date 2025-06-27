@@ -1,0 +1,74 @@
+Prim's Algorithm -Revision Notes
+--------------------------------------------
+
+Key Concept:
+------------
+- Purpose: Find Minimum Spanning Tree (MST) of a connected, undirected, weighted graph.
+- Approach: Greedy -> Always pick the smallest weight edge that connects a new node.
+
+Data Structures:
+----------------
+1. Adjacency List:
+   list<pair<int, int>> *l;
+   Stores {neighbor, weight} for each node.
+
+2. Min-Heap (Priority Queue):
+   priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+   Always gives the minimum weight edge available.
+
+3. Visited Array:
+   vector<bool> mstSet(V, false);
+   Keeps track of nodes already included in the MST.
+
+Algorithm Steps:
+----------------
+1. Start from any node (source).
+   pq.push({0, src});
+
+2. While priority queue is not empty:
+   - Pop minimum weight edge.
+   - If the node is already visited, skip it.
+   - Else:
+     - Mark it as visited.
+     - Add edge weight to MST total cost.
+     - Push all unvisited neighbors to the priority queue.
+
+3. Termination:
+   - When all nodes are visited, MST is complete.
+
+Important Code Points:
+----------------------
+- Do NOT mark the source as visited before starting the loop.
+- Always check:
+    if (mstSet[u]) continue;
+- Min-heap priority queue stores: {weight, node}
+
+Time Complexity:
+----------------
+O(E log V)
+(E = number of edges, V = number of vertices)
+
+Prim’s vs Kruskal’s:
+--------------------
+Prim’s Algorithm: Node-based, uses Min-Heap.
+Kruskal’s Algorithm: Edge-based, uses Disjoint Set (Union-Find).
+
+Quick Mental Flow:
+------------------
+1. Push source in priority queue.
+2. Pop minimum edge.
+3. If already visited -> skip.
+4. Else -> Add to MST, push unvisited neighbors.
+5. Repeat until priority queue is empty.
+
+Summary Table:
+--------------
+Concept                | Notes
+-----------------------|-------------------------------
+Graph Type             | Undirected, Weighted
+Data Structure         | Min-Heap, Visited Array
+Priority Queue Push    | {weight, node}
+Visited Check          | if (mstSet[u]) continue;
+Starting Point         | Push source in PQ, do NOT mark visited
+Time Complexity        | O(E log V)
+Prim’s vs Kruskal’s    | Prim’s: Node-based, Kruskal’s: Edge-based

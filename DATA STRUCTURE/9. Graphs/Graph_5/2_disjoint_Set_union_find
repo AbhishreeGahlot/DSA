@@ -1,0 +1,97 @@
+=====================================================================
+                        DISJOINT SET UNION (DSU)
+                         UNION FIND DATA STRUCTURE
+=====================================================================
+
+📌 DEFINITION:
+- Disjoint Set Union (DSU) or Union-Find is a data structure that keeps track of 
+  elements divided into multiple disjoint (non-overlapping) sets.
+
+- It efficiently supports two operations:
+    1. FIND(x): Determines the ultimate parent (representative) of element x.
+    2. UNION(x, y): Merges the sets containing elements x and y.
+
+=====================================================================
+📌 WHY USE DSU?
+- Efficient way to handle dynamic connectivity.
+- Used in solving:
+    ✅ Cycle Detection in Graphs
+    ✅ Kruskal’s Minimum Spanning Tree Algorithm
+    ✅ Connected Components in Graphs
+    ✅ Grouping and Partitioning Problems
+    ✅ Network Connectivity Problems
+
+=====================================================================
+📌 KEY OPERATIONS:
+1. FIND(x) - Path Compression
+   → Purpose: Find the ultimate parent of x.
+   → Optimization: Path compression flattens the tree to speed up future queries.
+
+2. UNION(x, y) - Union by Rank / Union by Size
+   → Purpose: Merge two disjoint sets.
+   → Optimization: Attach the smaller tree under the larger tree to keep trees shallow.
+
+=====================================================================
+📌 PATH COMPRESSION (in FIND)
+- When we find the parent of a node, we update its parent directly to the root.
+- Flattens the tree structure.
+- Makes future find operations extremely fast.
+
+Example:
+find(x)
+{
+    if (par[x] == x)
+        return x;
+    return par[x] = find(par[x]);  // Path compression
+}
+
+=====================================================================
+📌 UNION BY RANK
+- Rank represents the approximate height of the tree.
+- Always attach the smaller ranked tree under the higher ranked tree.
+
+Steps:
+- If rank[x] == rank[y], attach y under x and increase rank[x] by 1.
+- If rank[x] > rank[y], attach y under x.
+- If rank[x] < rank[y], attach x under y.
+
+=====================================================================
+📌 TIME COMPLEXITY:
+- Using path compression and union by rank → O(α(N))
+- α(N) is the inverse Ackermann function → practically constant time.
+
+Efficient for VERY large data sets.
+
+=====================================================================
+📌 VS CODE QUICK RECAP:
+
+👉 FIND(x): O(α(N))
+👉 UNION(x, y): O(α(N))
+👉 Use PATH COMPRESSION in FIND
+👉 Use UNION BY RANK to balance sets
+👉 Almost constant time per operation
+
+=====================================================================
+📌 APPLICATIONS:
+- Kruskal’s Algorithm for Minimum Spanning Tree (MST)
+- Detecting Cycles in Undirected Graphs
+- Network Connectivity Problems
+- Dynamic Graph Connectivity
+- Connected Components Counting
+
+=====================================================================
+📌 COMMON INTERVIEW PROBLEMS:
+1. Number of Connected Components in a Graph
+2. Detect Cycle in an Undirected Graph
+3. Accounts Merge (LeetCode)
+4. Redundant Connection (LeetCode)
+5. Similar String Groups
+
+=====================================================================
+📌 FINAL TIPS:
+✅ Always use path compression in FIND.
+✅ Always use union by rank or size for optimal merging.
+✅ Revise Kruskal’s Algorithm with DSU for MST.
+✅ Practice LeetCode DSU tag problems.
+
+=====================================================================
